@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amira | Bash Scripting Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f111a;
+            --card-bg: #1a1d2d;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #2e334d;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .stage-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .stage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .stage-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .phase-tag {
+            background-color: #272b40;
+            color: #a78bfa;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .topic-item {
+            background-color: #151725;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #23273c;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .topic-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .progress-percentage {
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background-color: #23273c;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-val {
+            background-color: #0f111a;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            width: 70px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .btn-update:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Amira's Bash Scripting Journey</h1>
+            <p>A structured roadmap for Linux Shell Scripting & Infrastructure Automation</p>
+            <div class="badge">
+                <span class="dot"></span>
+                <span id="sync-status">Live Cloud Sync Active</span>
+            </div>
+        </div>
+
+        <!-- Stage 1 -->
+        <div class="stage-card">
+            <div class="stage-header">
+                <div class="stage-title">Stage 1: Fundamentals & Environment</div>
+                <div class="phase-tag">Phase 1</div>
+            </div>
+            <div class="topic-list">
+                
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">🐚 Shebang & Terminal Basics</div>
+                        <div class="progress-percentage" id="pct-1">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-1"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-1" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(1)">Update Progress</button>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">📌 Variables & User Input (read, env, args)</div>
+                        <div class="progress-percentage" id="pct-2">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-2"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-2" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(2)">Update Progress</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage-card">
+            <div class="stage-header">
+                <div class="stage-title">Stage 2: Control Flow & Logic</div>
+                <div class="phase-tag">Phase 2</div>
+            </div>
+            <div class="topic-list">
+                
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">🔀 Conditionals & Operators (if/else, test, [ ])</div>
+                        <div class="progress-percentage" id="pct-3">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-3"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-3" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(3)">Update Progress</button>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">🔄 Loops & Arrays (for, while, select)</div>
+                        <div class="progress-percentage" id="pct-4">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-4"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-4" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(4)">Update Progress</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="stage-card">
+            <div class="stage-header">
+                <div class="stage-title">Stage 3: Advanced Scripting & Automation</div>
+                <div class="phase-tag">Phase 3</div>
+            </div>
+            <div class="topic-list">
+                
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">⚙️ Functions & Exit Codes ($?, status handling)</div>
+                        <div class="progress-percentage" id="pct-5">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-5"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-5" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(5)">Update Progress</button>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">📄 Text Processing (grep, sed, awk, cut)</div>
+                        <div class="progress-percentage" id="pct-6">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-6"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-6" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(6)">Update Progress</button>
+                    </div>
+                </div>
+
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <div class="topic-name">⏰ Cron Jobs & System Task Automation</div>
+                        <div class="progress-percentage" id="pct-7">0%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="bar-7"></div>
+                    </div>
+                    <div class="controls">
+                        <input type="number" id="inp-7" class="input-val" value="0" min="0" max="100">
+                        <button class="btn-update" onclick="updateProgress(7)">Update Progress</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- JSONBin Configuration ---
+        const BIN_ID = 'YOUR_BASH_BIN_ID_HERE'; // استبدلي هذا بـ Bin ID الخاص بصفحة Bash
+        const API_KEY = 'YOUR_JSONBIN_MASTER_KEY_HERE'; // استبدلي هذا بـ Master Key لـ JSONBin
+        const URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+        let progressData = {};
+
+        // Fetch data from JSONBin on load
+        async function loadProgress() {
+            const statusElem = document.getElementById('sync-status');
+            statusElem.innerText = 'Syncing from Cloud...';
+
+            try {
+                const res = await fetch(URL, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                
+                if (res.ok) {
+                    const json = await res.json();
+                    progressData = json.record || {};
+                    
+                    // Render fetched values
+                    for (let i = 1; i <= 7; i++) {
+                        let val = progressData[`topic_${i}`] || 0;
+                        renderUI(i, val);
+                    }
+                    statusElem.innerText = 'Live Cloud Sync Active';
+                } else {
+                    statusElem.innerText = 'Sync Failed (Check Keys)';
+                }
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                statusElem.innerText = 'Offline Mode';
+            }
+        }
+
+        // Save data to JSONBin
+        async function saveProgress() {
+            const statusElem = document.getElementById('sync-status');
+            statusElem.innerText = 'Saving to Cloud...';
+
+            try {
+                const res = await fetch(URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify(progressData)
+                });
+
+                if (res.ok) {
+                    statusElem.innerText = 'Live Cloud Sync Active';
+                } else {
+                    statusElem.innerText = 'Error Saving Progress';
+                }
+            } catch (err) {
+                console.error('Error saving data:', err);
+                statusElem.innerText = 'Save Failed (Offline)';
+            }
+        }
+
+        // Render UI Elements
+        function renderUI(id, val) {
+            document.getElementById(`inp-${id}`).value = val;
+            document.getElementById(`bar-${id}`).style.width = val + '%';
+            document.getElementById(`pct-${id}`).innerText = val + '%';
+        }
+
+        // Update Handler
+        function updateProgress(id) {
+            const input = document.getElementById(`inp-${id}`);
+            let val = parseInt(input.value) || 0;
+
+            if (val < 0) val = 0;
+            if (val > 100) val = 100;
+
+            renderUI(id, val);
+
+            // Update local state and save to Cloud
+            progressData[`topic_${i}`] = val; // Store in state
+            saveProgress();
+        }
+
+        // Load progress on startup
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
